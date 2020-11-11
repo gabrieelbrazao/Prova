@@ -6,6 +6,7 @@ import {
   Platform,
   StatusBar as nativeBar,
 } from "react-native";
+import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
 
 import Routes from "./routes";
 
@@ -16,11 +17,22 @@ const styles = StyleSheet.create({
   },
 });
 
+const theme = {
+  ...DefaultTheme,
+  roundness: 2,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: "#2980b9",
+  },
+};
+
 export default function App() {
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <StatusBar style="light" backgroundColor="#2980b9" />
-      <Routes />
-    </SafeAreaView>
+    <PaperProvider theme={theme}>
+      <SafeAreaView style={styles.safeArea}>
+        <StatusBar style="light" backgroundColor="#2980b9" />
+        <Routes />
+      </SafeAreaView>
+    </PaperProvider>
   );
 }

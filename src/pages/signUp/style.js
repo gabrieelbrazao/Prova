@@ -17,14 +17,9 @@ export default StyleSheet.create({
     width: "100%",
     justifyContent: "center",
   },
-  input: {
-    width: "90%",
-  },
-  confirmView: {
-    flex: 0.3,
-    width: "90%",
-    alignItems: "flex-end",
-    justifyContent: "flex-end",
-    marginBottom: 20,
+  stepsView: {
+    flex: 1,
+    width: "100%",
+    flexDirection: "row",
   },
 });

@@ -6,6 +6,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import Index from "../pages/index";
 import SignIn from "../pages/signIn";
+import SignUp from "../pages/signUp";
+import SignUpSuccess from "../pages/signUpSuccess";
 
 const Tab = createStackNavigator();
 
@@ -25,6 +27,19 @@ export default () => {
             title: "",
             headerTransparent: true,
           }}
+        />
+        <Tab.Screen
+          name="signUp"
+          component={SignUp}
+          options={{
+            title: "",
+            headerTransparent: true,
+          }}
+        />
+        <Tab.Screen
+          name="signUpSuccess"
+          component={SignUpSuccess}
+          options={{ headerShown: false }}
         />
       </Tab.Navigator>
     </NavigationContainer>

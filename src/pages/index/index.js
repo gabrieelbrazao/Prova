@@ -29,7 +29,7 @@ export default ({ navigation }) => {
           <Text style={localStyle.orText}>OU</Text>
         </View>
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("signUp")}>
           <Text style={localStyle.optText}>CADASTRAR</Text>
         </TouchableOpacity>
       </View>

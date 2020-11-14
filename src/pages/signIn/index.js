@@ -13,14 +13,13 @@ export default () => {
 
   return (
     <ScrollView
+      keyboardShouldPersistTaps="handled"
       contentContainerStyle={{
         ...localStyle.mainView,
         paddingTop: headerHeight,
       }}
     >
-      <View style={localStyle.imgView}>
-        <SignIn height="100%" />
-      </View>
+      <SignIn height={180} />
 
       <View style={localStyle.textsView}>
         <Text style={globalStyle.title}>Entrar</Text>
@@ -35,12 +34,14 @@ export default () => {
           style={{ ...localStyle.input, marginBottom: 30 }}
           mode="outlined"
           dense
+          keyboardType="email-address"
         />
         <TextInput
           label="Senha"
           style={localStyle.input}
           mode="outlined"
           dense
+          secureTextEntry
         />
       </View>
 

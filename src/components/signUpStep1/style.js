@@ -1,15 +1,9 @@
-import { StyleSheet, Dimensions } from "react-native";
+import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
   mainView: {
     flex: 1,
     width: "100%",
-    alignItems: "center",
-    minHeight: Dimensions.get("window").height - 56,
-  },
-  textsView: {
-    marginTop: 20,
-    alignItems: "center",
   },
   inputsView: {
     flex: 0.7,
@@ -22,7 +16,7 @@ export default StyleSheet.create({
   },
   confirmView: {
     flex: 0.3,
-    width: "90%",
+    width: "95%",
     alignItems: "flex-end",
     justifyContent: "flex-end",
     marginBottom: 20,

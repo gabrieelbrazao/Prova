@@ -40,7 +40,7 @@ export default ({ navigation }) => {
           icon="home"
           mode="contained"
           contentStyle={localStyle.button}
-          onPress={() => {}}
+          onPress={() => navigation.navigate("meetingList")}
         >
           ENTRAR
         </Button>

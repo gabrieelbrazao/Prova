@@ -5,11 +5,17 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import Index from "../pages/index";
+import MeetingList from "../pages/meetingList";
 import SignIn from "../pages/signIn";
 import SignUp from "../pages/signUp";
 import SignUpSuccess from "../pages/signUpSuccess";
 
 const Tab = createStackNavigator();
+
+const headerConfig = {
+  title: "",
+  headerTransparent: true,
+};
 
 export default () => {
   return (
@@ -20,25 +26,20 @@ export default () => {
           component={Index}
           options={{ headerShown: false }}
         />
-        <Tab.Screen
-          name="signIn"
-          component={SignIn}
-          options={{
-            title: "",
-            headerTransparent: true,
-          }}
-        />
-        <Tab.Screen
-          name="signUp"
-          component={SignUp}
-          options={{
-            title: "",
-            headerTransparent: true,
-          }}
-        />
+
+        <Tab.Screen name="signIn" component={SignIn} options={headerConfig} />
+
+        <Tab.Screen name="signUp" component={SignUp} options={headerConfig} />
+
         <Tab.Screen
           name="signUpSuccess"
           component={SignUpSuccess}
+          options={{ headerShown: false }}
+        />
+
+        <Tab.Screen
+          name="meetingList"
+          component={MeetingList}
           options={{ headerShown: false }}
         />
       </Tab.Navigator>

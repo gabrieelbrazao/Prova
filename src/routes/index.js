@@ -5,6 +5,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import Index from "../pages/index";
+import MeetingDetails from "../pages/meetingDetails";
 import MeetingList from "../pages/meetingList";
 import SignIn from "../pages/signIn";
 import SignUp from "../pages/signUp";
@@ -41,6 +42,12 @@ export default () => {
           name="meetingList"
           component={MeetingList}
           options={{ headerShown: false }}
+        />
+
+        <Tab.Screen
+          name="meetingDetails"
+          component={MeetingDetails}
+          options={headerConfig}
         />
       </Tab.Navigator>
     </NavigationContainer>

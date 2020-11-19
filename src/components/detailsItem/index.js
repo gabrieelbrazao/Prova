@@ -4,18 +4,23 @@ import { Avatar, Switch } from "react-native-paper";
 
 import localStyle from "./style";
 
-export default ({ item }) => {
+export default ({ item, check }) => {
   return (
-    <TouchableOpacity
-      style={localStyle.mainView}
-      onPress={() => console.log("ok")}
-    >
+    <TouchableOpacity style={localStyle.mainView} onPress={() => check()}>
       <>
         <Text style={localStyle.meetingName}>{item.name}</Text>
 
         <View style={localStyle.dateView}>
-          <Avatar.Icon size={30} icon="close" />
-          <Switch style={localStyle.switch} />
+          <TouchableOpacity>
+            <Avatar.Icon size={30} icon="close" />
+          </TouchableOpacity>
+
+          <Switch
+            style={localStyle.switch}
+            value={item.checks.includes(item.id)}
+            onValueChange={() => check()}
+            color="#2980b9"
+          />
         </View>
       </>
     </TouchableOpacity>

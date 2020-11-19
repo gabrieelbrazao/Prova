@@ -1,11 +1,5 @@
-import React from "react";
-import {
-  View,
-  FlatList,
-  TextInput,
-  TouchableOpacity,
-  ScrollView,
-} from "react-native";
+import React, { useState } from "react";
+import { View, TextInput, TouchableOpacity, ScrollView } from "react-native";
 import { Avatar } from "react-native-paper";
 
 import { useHeaderHeight } from "@react-navigation/stack";
@@ -17,41 +11,49 @@ const data = [
   {
     id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
     name: "First person",
-    checked: true,
   },
   {
     id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
     name: "Second person",
-    checked: false,
   },
   {
-    id: "58694a0f-3da1-471f-bd96-145571e29d72",
+    id: "58694a0f-3da1-471f-bd96-145571e29d7k",
     name: "Third person",
-    checked: true,
   },
 ];
 
 export default () => {
   const headerHeight = useHeaderHeight();
+  const [checks, setChecks] = useState([]);
 
   return (
-    <ScrollView
-      contentContainerStyle={{
+    <View
+      style={{
         ...localStyle.mainView,
         paddingTop: headerHeight,
       }}
     >
       <TextInput style={localStyle.meetingName}>Nome da reunião</TextInput>
 
-      <View style={localStyle.listView}>
-        <View style={localStyle.list}>
-          <FlatList
-            data={data}
-            renderItem={Item}
-            keyExtractor={({ id }) => id}
-          />
-        </View>
-      </View>
+      <ScrollView contentContainerStyle={localStyle.listView}>
+        {data.map((item) => {
+          let newChecks = [];
+
+          if (checks.includes(item.id)) {
+            newChecks = checks.filter((value) => value !== item.id);
+          } else {
+            newChecks = [...checks, item.id];
+          }
+
+          return (
+            <Item
+              item={{ ...item, checks }}
+              check={() => setChecks(newChecks)}
+              key={item.id}
+            />
+          );
+        })}
+      </ScrollView>
 
       <View style={localStyle.footer}>
         <View style={localStyle.footerButtons}>
@@ -66,6 +68,6 @@ export default () => {
 
         <TextInput style={localStyle.dateText}>06/11/2020</TextInput>
       </View>
-    </ScrollView>
+    </View>
   );
 };

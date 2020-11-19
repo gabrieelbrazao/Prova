@@ -21,7 +21,7 @@ const headerConfig = {
 export default () => {
   return (
     <NavigationContainer>
-      <Tab.Navigator initialRouteName="index">
+      <Tab.Navigator initialRouteName="meetingDetails">
         <Tab.Screen
           name="index"
           component={Index}

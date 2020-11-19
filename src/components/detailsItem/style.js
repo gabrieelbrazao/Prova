@@ -10,7 +10,7 @@ export default StyleSheet.create({
     alignItems: "center",
   },
   meetingName: {
-    fontSize: 20,
+    fontSize: 15,
     flex: 1,
   },
   dateView: {

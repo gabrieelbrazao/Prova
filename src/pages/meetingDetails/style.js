@@ -13,12 +13,8 @@ export default StyleSheet.create({
     color: "#2980b9",
   },
   listView: {
-    width: "100%",
-    alignItems: "center",
-    flex: 1,
-  },
-  list: {
     width: "95%",
+    alignItems: "center",
   },
   footer: {
     paddingHorizontal: 20,

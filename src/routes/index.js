@@ -2,11 +2,16 @@ import "react-native-gesture-handler";
 import React from "react";
 
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+import {
+  createStackNavigator,
+  HeaderBackButton,
+} from "@react-navigation/stack";
 
 import Index from "../pages/index";
 import MeetingDetails from "../pages/meetingDetails";
 import MeetingList from "../pages/meetingList";
+import NewMeeting from "../pages/newMeeting";
+import NewMeetingSuccess from "../pages/newMeetingSuccess";
 import SignIn from "../pages/signIn";
 import SignUp from "../pages/signUp";
 import SignUpSuccess from "../pages/signUpSuccess";
@@ -21,7 +26,7 @@ const headerConfig = {
 export default () => {
   return (
     <NavigationContainer>
-      <Tab.Navigator initialRouteName="meetingDetails">
+      <Tab.Navigator initialRouteName="meetingList">
         <Tab.Screen
           name="index"
           component={Index}
@@ -47,7 +52,29 @@ export default () => {
         <Tab.Screen
           name="meetingDetails"
           component={MeetingDetails}
+          options={({ navigation }) => ({
+            ...headerConfig,
+            headerLeft: (props) => (
+              <HeaderBackButton
+                {...props}
+                onPress={() => {
+                  navigation.navigate("meetingList");
+                }}
+              />
+            ),
+          })}
+        />
+
+        <Tab.Screen
+          name="newMeeting"
+          component={NewMeeting}
           options={headerConfig}
+        />
+
+        <Tab.Screen
+          name="newMeetingSuccess"
+          component={NewMeetingSuccess}
+          options={{ headerShown: false }}
         />
       </Tab.Navigator>
     </NavigationContainer>

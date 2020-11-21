@@ -66,7 +66,7 @@ export default ({ navigation }) => {
           />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => console.log("ok")}>
+        <TouchableOpacity onPress={() => navigation.navigate("newMeeting")}>
           <Avatar.Icon size={70} icon="plus" />
         </TouchableOpacity>
       </View>

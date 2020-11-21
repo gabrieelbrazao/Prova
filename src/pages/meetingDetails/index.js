@@ -5,6 +5,7 @@ import { Avatar } from "react-native-paper";
 import { useHeaderHeight } from "@react-navigation/stack";
 
 import Item from "../../components/detailsItem";
+import Modal from "../../components/modal";
 import localStyle from "./style";
 
 const data = [
@@ -25,49 +26,57 @@ const data = [
 export default () => {
   const headerHeight = useHeaderHeight();
   const [checks, setChecks] = useState([]);
+  const [visible, setVisible] = useState(false);
+
+  const showModal = () => setVisible(true);
+  const hideModal = () => setVisible(false);
 
   return (
-    <View
-      style={{
-        ...localStyle.mainView,
-        paddingTop: headerHeight,
-      }}
-    >
-      <TextInput style={localStyle.meetingName}>Nome da reunião</TextInput>
+    <>
+      <Modal visible={visible} hideModal={hideModal} />
+      <ScrollView
+        keyboardShouldPersistTaps="handled"
+        contentContainerStyle={{
+          ...localStyle.mainView,
+          paddingTop: headerHeight,
+        }}
+      >
+        <TextInput style={localStyle.meetingName}>Nome da reunião</TextInput>
 
-      <ScrollView contentContainerStyle={localStyle.listView}>
-        {data.map((item) => {
-          let newChecks = [];
+        <ScrollView contentContainerStyle={localStyle.listView}>
+          {data.map((item) => {
+            let newChecks = [];
 
-          if (checks.includes(item.id)) {
-            newChecks = checks.filter((value) => value !== item.id);
-          } else {
-            newChecks = [...checks, item.id];
-          }
+            if (checks.includes(item.id)) {
+              newChecks = checks.filter((value) => value !== item.id);
+            } else {
+              newChecks = [...checks, item.id];
+            }
 
-          return (
-            <Item
-              item={{ ...item, checks }}
-              check={() => setChecks(newChecks)}
-              key={item.id}
-            />
-          );
-        })}
-      </ScrollView>
+            return (
+              <Item
+                item={{ ...item, checks }}
+                check={() => setChecks(newChecks)}
+                key={item.id}
+              />
+            );
+          })}
+        </ScrollView>
 
-      <View style={localStyle.footer}>
-        <View style={localStyle.footerButtons}>
-          <TouchableOpacity onPress={() => console.log("ok")}>
-            <Avatar.Icon size={70} icon="plus" />
-          </TouchableOpacity>
+        <View style={localStyle.footer}>
+          <View style={localStyle.footerButtons}>
+            <TouchableOpacity onPress={() => showModal()}>
+              <Avatar.Icon size={70} icon="plus" />
+            </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => console.log("ok")}>
-            <Avatar.Icon size={70} icon="check" />
-          </TouchableOpacity>
+            <TouchableOpacity onPress={() => console.log("ok")}>
+              <Avatar.Icon size={70} icon="check" />
+            </TouchableOpacity>
+          </View>
+
+          <TextInput style={localStyle.dateText}>06/11/2020</TextInput>
         </View>
-
-        <TextInput style={localStyle.dateText}>06/11/2020</TextInput>
-      </View>
-    </View>
+      </ScrollView>
+    </>
   );
 };

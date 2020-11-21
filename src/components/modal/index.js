@@ -29,6 +29,7 @@ export default ({ visible, hideModal }) => {
           mode="outlined"
           dense
           style={localStyle.input}
+          keyboardType="email-address"
         />
 
         <Button mode="contained" onPress={() => console.log("ok")}>

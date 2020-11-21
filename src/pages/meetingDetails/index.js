@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, TextInput, TouchableOpacity, ScrollView } from "react-native";
 import { Avatar } from "react-native-paper";
 
+import DateTimePicker from "@react-native-community/datetimepicker";
 import { useHeaderHeight } from "@react-navigation/stack";
 
 import Item from "../../components/detailsItem";
 import Modal from "../../components/modal";
+import { getTimeFromDate, dateTimeToBrl } from "../../utils/timeLocale";
 import localStyle from "./style";
 
 const data = [
@@ -23,13 +25,47 @@ const data = [
   },
 ];
 
-export default () => {
+export default ({ navigation }) => {
   const headerHeight = useHeaderHeight();
   const [checks, setChecks] = useState([]);
   const [visible, setVisible] = useState(false);
 
+  const [show, setShow] = useState(false);
+  const [dateTime, setDateTime] = useState("");
+  const [mode, setMode] = useState("date");
+
+  const changeDateTime = (dataChange) => {
+    if (!dataChange) {
+      setShow(false);
+      setMode("date");
+      return;
+    }
+
+    if (mode === "date") {
+      setMode("time");
+
+      setDateTime(dateTimeToBrl(dataChange));
+    } else if (mode === "time") {
+      setShow(false);
+
+      const date = dateTime.split(" ")[0];
+
+      setDateTime(`${date} ${getTimeFromDate(dataChange)}`);
+
+      setMode("date");
+    }
+  };
+
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
+
+  useEffect(() => {
+    navigation.addListener("beforeRemove", (event) => {
+      event.preventDefault();
+
+      navigation.navigate("meetingList");
+    });
+  }, [navigation]);
 
   return (
     <>
@@ -41,7 +77,11 @@ export default () => {
           paddingTop: headerHeight,
         }}
       >
-        <TextInput style={localStyle.meetingName}>Nome da reunião</TextInput>
+        <TextInput
+          style={localStyle.meetingName}
+          value="Nome da reunião"
+          maxLength={45}
+        />
 
         <ScrollView contentContainerStyle={localStyle.listView}>
           {data.map((item) => {
@@ -69,14 +109,31 @@ export default () => {
               <Avatar.Icon size={70} icon="plus" />
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => console.log("ok")}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("meetingList")}
+            >
               <Avatar.Icon size={70} icon="check" />
             </TouchableOpacity>
           </View>
 
-          <TextInput style={localStyle.dateText}>06/11/2020</TextInput>
+          <TextInput
+            style={localStyle.dateText}
+            onFocus={() => setShow(true)}
+            value={dateTime}
+          />
         </View>
       </ScrollView>
+
+      {show && (
+        <DateTimePicker
+          value={new Date()}
+          mode={mode}
+          is24Hour
+          display="default"
+          minimumDate={new Date()}
+          onChange={(event, dataChange) => changeDateTime(dataChange)}
+        />
+      )}
     </>
   );
 };

@@ -2,10 +2,7 @@ import "react-native-gesture-handler";
 import React from "react";
 
 import { NavigationContainer } from "@react-navigation/native";
-import {
-  createStackNavigator,
-  HeaderBackButton,
-} from "@react-navigation/stack";
+import { createStackNavigator } from "@react-navigation/stack";
 
 import Index from "../pages/index";
 import MeetingDetails from "../pages/meetingDetails";
@@ -26,7 +23,7 @@ const headerConfig = {
 export default () => {
   return (
     <NavigationContainer>
-      <Tab.Navigator initialRouteName="meetingList">
+      <Tab.Navigator initialRouteName="meetingDetails">
         <Tab.Screen
           name="index"
           component={Index}
@@ -52,17 +49,7 @@ export default () => {
         <Tab.Screen
           name="meetingDetails"
           component={MeetingDetails}
-          options={({ navigation }) => ({
-            ...headerConfig,
-            headerLeft: (props) => (
-              <HeaderBackButton
-                {...props}
-                onPress={() => {
-                  navigation.navigate("meetingList");
-                }}
-              />
-            ),
-          })}
+          options={headerConfig}
         />
 
         <Tab.Screen

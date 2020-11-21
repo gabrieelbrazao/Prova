@@ -14,8 +14,6 @@ export default ({ navigation }) => {
   const stepsAnimation = useRef(new Animated.Value(0)).current;
   const [progress, setProgress] = useState(0.5);
 
-  console.log(stepsAnimation);
-
   return (
     <ScrollView
       keyboardShouldPersistTaps="handled"

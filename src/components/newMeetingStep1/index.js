@@ -24,6 +24,7 @@ export default ({ stepFunction, stepAnimation, setProgress }) => {
           dense
           style={localStyle.input}
           label="Nome"
+          maxLength={45}
         />
       </View>
 

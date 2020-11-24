@@ -1,18 +1,23 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, Animated } from "react-native";
+import { View, Text, TouchableOpacity, Animated, Alert } from "react-native";
 import { Avatar, TextInput } from "react-native-paper";
 
 import DateTimePicker from "@react-native-community/datetimepicker";
 
-import { getTimeFromDate, dateTimeToBrl } from "../../utils/timeLocale";
+import {
+  getTimeFromDate,
+  dateTimeToBrl,
+  isFutureDate,
+} from "../../utils/timeLocale";
 import localStyle from "./style";
 
 export default ({ stepAnimation, navigation }) => {
   const [show, setShow] = useState(false);
   const [dateTime, setDateTime] = useState("");
   const [mode, setMode] = useState("date");
+  const [errors, setErrors] = useState();
 
-  const changeDateTime = (data) => {
+  const handleChangeDateTime = (data) => {
     if (!data) {
       setShow(false);
       setMode("date");
@@ -26,6 +31,26 @@ export default ({ stepAnimation, navigation }) => {
       setShow(false);
       setDateTime(`${dateTime.split(" ")[0]} ${getTimeFromDate(data)}`);
       setMode("date");
+    }
+  };
+
+  const handleCreateMeeting = () => {
+    let result;
+
+    if (!dateTime) {
+      result = { dateTime: ["Data não pode ser vazia."] };
+    } else if (!isFutureDate(dateTime)) {
+      result = { dateTime: ["Data deve ser futura à data atual."] };
+    }
+
+    setErrors(result);
+
+    if (result) {
+      const msg = `${result.dateTime[0]}`;
+
+      Alert.alert("Dados incorretos!", msg);
+    } else {
+      navigation.navigate("newMeetingSuccess");
     }
   };
 
@@ -43,7 +68,7 @@ export default ({ stepAnimation, navigation }) => {
           is24Hour
           display="default"
           minimumDate={new Date()}
-          onChange={(event, data) => changeDateTime(data)}
+          onChange={(event, data) => handleChangeDateTime(data)}
         />
       )}
 
@@ -57,13 +82,12 @@ export default ({ stepAnimation, navigation }) => {
           label="Data"
           onFocus={() => setShow(true)}
           value={dateTime}
+          error={errors}
         />
       </View>
 
       <View style={localStyle.footer}>
-        <TouchableOpacity
-          onPress={() => navigation.navigate("newMeetingSuccess")}
-        >
+        <TouchableOpacity onPress={() => handleCreateMeeting()}>
           <Avatar.Icon size={70} icon="check" />
         </TouchableOpacity>
       </View>

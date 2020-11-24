@@ -9,7 +9,7 @@ import localStyle from "./style";
 export default ({ navigation }) => {
   useEffect(() => {
     navigation.addListener("beforeRemove", (event) => {
-      event.preventDefault();
+      if (event.data.action.type !== "REPLACE") event.preventDefault();
     });
   }, [navigation]);
 
@@ -40,7 +40,7 @@ export default ({ navigation }) => {
           icon="home"
           mode="contained"
           contentStyle={localStyle.button}
-          onPress={() => navigation.navigate("meetingList")}
+          onPress={() => navigation.replace("meetingList")}
         >
           ENTRAR
         </Button>

@@ -1,13 +1,30 @@
-import React from "react";
-import { View, Text, TouchableOpacity, Animated } from "react-native";
+import React, { useState } from "react";
+import { View, Text, TouchableOpacity, Animated, Alert } from "react-native";
 import { Avatar, TextInput } from "react-native-paper";
+import validate from "validate.js";
 
+import { constraintsNewMeetingStep1 } from "../../utils/validateConstraints";
 import localStyle from "./style";
 
 export default ({ stepFunction, stepAnimation, setProgress }) => {
+  const [name, setName] = useState("");
+  const [errors, setErrors] = useState();
+
   const handleChangeStep = () => {
-    setProgress(1);
-    stepFunction(stepAnimation);
+    const result = validate({ name }, constraintsNewMeetingStep1, {
+      fullMessages: false,
+    });
+
+    setErrors(result);
+
+    if (result) {
+      const msg = `${result.name[0]}`;
+
+      Alert.alert("Dados incorretos!", msg);
+    } else {
+      setProgress(1);
+      stepFunction(stepAnimation);
+    }
   };
 
   return (
@@ -25,6 +42,9 @@ export default ({ stepFunction, stepAnimation, setProgress }) => {
           style={localStyle.input}
           label="Nome"
           maxLength={45}
+          error={errors?.name}
+          value={name}
+          onChangeText={(text) => setName(text)}
         />
       </View>
 

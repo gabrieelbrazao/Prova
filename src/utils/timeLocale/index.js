@@ -18,3 +18,22 @@ export function dateTimeToBrl(date) {
     date
   )}`;
 }
+
+export function dateTimeToUTC(date) {
+  const pieces = date.split(" ");
+  const pieces2 = pieces[0].split("/");
+
+  return new Date(`${pieces2[2]}-${pieces2[1]}-${pieces2[0]}T${pieces[1]}`);
+}
+
+export function isFutureDate(date) {
+  console.log(dateTimeToUTC(date));
+  return dateTimeToUTC(date).getTime() > new Date().getTime();
+}
+
+export function javaReturnToBrl(date) {
+  const pieces = date.split(" ");
+  const pieces2 = pieces[0].split("-");
+
+  return `${pieces2[2]}/${pieces2[1]}/${pieces2[0]} ${pieces[1].split(".")[0]}`;
+}

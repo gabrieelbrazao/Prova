@@ -21,7 +21,7 @@ export default ({ navigation }) => {
       </View>
 
       <View style={localStyle.bottomView}>
-        <TouchableOpacity onPress={() => navigation.navigate("meetingDetails")}>
+        <TouchableOpacity onPress={() => navigation.navigate("signIn")}>
           <Text style={localStyle.optText}>ENTRAR</Text>
         </TouchableOpacity>
 

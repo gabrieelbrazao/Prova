@@ -4,7 +4,7 @@ import { TextInput, Avatar } from "react-native-paper";
 
 import localStyle from "./style";
 
-export default ({ stepAnimation, navigation }) => {
+export default ({ stepAnimation, validation }) => {
   return (
     <Animated.View
       style={{ transform: [{ translateX: stepAnimation }], width: "100%" }}
@@ -16,11 +16,14 @@ export default ({ stepAnimation, navigation }) => {
           mode="outlined"
           dense
           secureTextEntry
+          error={validation.errors?.password}
+          value={validation.password}
+          onChangeText={(text) => validation.setPassword(text)}
         />
       </View>
 
       <View style={localStyle.confirmView}>
-        <TouchableOpacity onPress={() => navigation.navigate("signUpSuccess")}>
+        <TouchableOpacity onPress={() => validation.handleSignUp()}>
           <Avatar.Icon size={70} icon="check" />
         </TouchableOpacity>
       </View>

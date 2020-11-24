@@ -1,10 +1,11 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 
 export default StyleSheet.create({
   mainView: {
     flex: 1,
     width: "100%",
     alignItems: "center",
+    minHeight: Dimensions.get("window").height - 56,
   },
   nameView: {
     width: "100%",
@@ -25,7 +26,6 @@ export default StyleSheet.create({
   listView: {
     width: "100%",
     alignItems: "center",
-    flex: 1,
   },
   list: {
     width: "90%",

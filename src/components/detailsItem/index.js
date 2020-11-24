@@ -8,7 +8,7 @@ export default ({ item, check }) => {
   return (
     <TouchableOpacity style={localStyle.mainView} onPress={() => check()}>
       <>
-        <Text style={localStyle.meetingName}>{item.name}</Text>
+        <Text style={localStyle.meetingName}>{item.nome}</Text>
 
         <View style={localStyle.dateView}>
           <TouchableOpacity>

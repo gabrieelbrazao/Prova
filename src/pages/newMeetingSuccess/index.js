@@ -9,7 +9,8 @@ import localStyle from "./style";
 export default ({ navigation }) => {
   useEffect(() => {
     navigation.addListener("beforeRemove", (event) => {
-      event.preventDefault();
+      const { type } = event.data.action;
+      if (type !== "REPLACE" && type !== "NAVIGATE") event.preventDefault();
     });
   }, [navigation]);
 
@@ -40,7 +41,8 @@ export default ({ navigation }) => {
           icon="format-list-bulleted"
           mode="contained"
           contentStyle={localStyle.button}
-          onPress={() => navigation.navigate("meetingDetails")}
+          onPress={() => navigation.navigate("meetingList")}
+          // onPress={() => navigation.navigate("meetingDetails")}
           style={{ marginBottom: 20 }}
         >
           DETALHES

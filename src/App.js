@@ -7,8 +7,10 @@ import {
   StatusBar as nativeBar,
 } from "react-native";
 import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
+import { Provider } from "react-redux";
 
 import Routes from "./routes";
+import store from "./store";
 
 const styles = StyleSheet.create({
   safeArea: {
@@ -31,7 +33,9 @@ export default function App() {
     <PaperProvider theme={theme}>
       <SafeAreaView style={styles.safeArea}>
         <StatusBar style="light" backgroundColor="#2980b9" />
-        <Routes />
+        <Provider store={store}>
+          <Routes />
+        </Provider>
       </SafeAreaView>
     </PaperProvider>
   );
